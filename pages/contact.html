@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Contactez Tek Communication - Nous sommes à votre écoute"
+    />
+    <meta name="theme-color" content="#4a9eff" />
+    <title>Tek Communication - Contact</title>
+    <link rel="icon" type="image/png" href="../images/tek-favicon.png" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/pages.css" />
+  </head>
+  <body>
+    <!-- Skip Navigation Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <!-- Sticky Header -->
+    <header class="header" id="header" role="banner">
+      <div class="container">
+        <div class="header-content">
+          <div class="logo">
+            <a
+              href="../index.html"
+              aria-label="Retour à l'accueil - Tek Communication"
+            >
+              <img
+                src="../images/logo2.png"
+                alt="Tek Communication Logo"
+                class="logo-img"
+                width="50"
+                height="50"
+              />
+              <span class="logo-text">Tek Communication</span>
+            </a>
+          </div>
+          <nav
+            class="nav"
+            id="nav"
+            role="navigation"
+            aria-label="Menu principal"
+          >
+            <ul class="nav-list">
+              <li class="nav-item"><a href="../index.html">Accueil</a></li>
+              <li class="nav-item"><a href="a-propos.html">À Propos</a></li>
+              <li class="nav-item"><a href="services.html">Services</a></li>
+              <!-- <li class="nav-item dropdown">
+                <a
+                  href="projets.html"
+                  class="dropdown-toggle"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Projets
+                  <span class="dropdown-arrow" aria-hidden="true">▼</span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li role="none">
+                    <a href="projets.html#numerisation" role="menuitem"
+                      >Numérisation</a
+                    >
+                  </li>
+                  <li role="none">
+                    <a href="projets.html#conseil" role="menuitem">Conseil</a>
+                  </li>
+                  <li role="none">
+                    <a href="projets.html#sous-traitance" role="menuitem"
+                      >Sous-traitance</a
+                    >
+                  </li>
+                </ul>
+              </li> -->
+              <li class="nav-item active">
+                <a href="contact.html" aria-current="page">Contact</a>
+              </li>
+            </ul>
+          </nav>
+          <button
+            class="mobile-menu-toggle"
+            id="mobile-menu-toggle"
+            aria-label="Ouvrir le menu de navigation"
+            aria-expanded="false"
+            aria-controls="nav"
+          >
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content">
+      <!-- Page Hero -->
+      <section
+        class="page-hero"
+        aria-labelledby="page-title"
+        style="background-image: url('../images/contact-us-2993000_1280.jpg')"
+      >
+        <div class="container">
+          <h1 class="page-title" id="page-title">CONTACTEZ-NOUS</h1>
+        </div>
+      </section>
+
+      <!-- Tagline Section -->
+      <section class="tagline-section">
+        <h2 class="tagline">Commençons la conversation</h2>
+      </section>
+
+      <!-- Contact Section -->
+      <section class="contact-section" aria-labelledby="contact-heading">
+        <div class="container">
+          <div class="contact-grid">
+            <!-- Contact Form -->
+            <div class="contact-form-wrapper">
+              <h2 id="contact-heading" class="section-heading">
+                Envoyez-nous un message
+              </h2>
+              <form
+                class="contact-form"
+                id="contact-form"
+                novalidate
+                aria-label="Formulaire de contact"
+              >
+                <div class="form-group">
+                  <label for="name"
+                    >Nom complet <span aria-label="requis">*</span></label
+                  >
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    aria-required="true"
+                    autocomplete="name"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="email"
+                    >Email <span aria-label="requis">*</span></label
+                  >
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    aria-required="true"
+                    autocomplete="email"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="phone">Téléphone</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    autocomplete="tel"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="company">Entreprise</label>
+                  <input
+                    type="text"
+                    id="company"
+                    name="company"
+                    autocomplete="organization"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="service">Service concerné</label>
+                  <select id="service" name="service">
+                    <option value="">Sélectionnez un service</option>
+                    <option value="numerisation">Numérisation</option>
+                    <option value="conseil">Conseil</option>
+                    <option value="sous-traitance">Sous-traitance</option>
+                    <option value="autre">Autre</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="message"
+                    >Message <span aria-label="requis">*</span></label
+                  >
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="6"
+                    required
+                    aria-required="true"
+                  ></textarea>
+                </div>
+                <button type="submit" class="cta-button-red">ENVOYER</button>
+              </form>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="contact-info-wrapper">
+              <h2 class="section-heading">Nos coordonnées</h2>
+              <div class="contact-info">
+                <address class="contact-info-item">
+                  <h3>📍 Adresse</h3>
+                  <p>64 AV Méthodiste, Lubumbashi, Haut-Katanga</p>
+                  <p>République Démocratique du Congo</p>
+                </address>
+                <div class="contact-info-item">
+                  <h3>📞 Téléphone</h3>
+                  <p>
+                    <a
+                      href="tel:+2437340225807"
+                      aria-label="Appeler le numéro de téléphone"
+                      >+243 7340 225 807</a
+                    >
+                  </p>
+                </div>
+                <div class="contact-info-item">
+                  <h3>✉️ Email</h3>
+                  <p>
+                    <a
+                      href="mailto:info@tekcommunication.com"
+                      aria-label="Envoyer un email"
+                      >info@tekcommunication.com</a
+                    >
+                  </p>
+                </div>
+                <div class="contact-info-item">
+                  <h3>🕐 Horaires</h3>
+                  <p>
+                    Lundi - Vendredi: 8h00 - 17h00<br />
+                    Samedi: 9h00 - 13h00<br />
+                    Dimanche: Fermé
+                  </p>
+                </div>
+                <div class="contact-info-item">
+                  <h3>📖 Documents</h3>
+                  <p><span>Numéro ARSP :</span>4629324964</p>
+                  <p><span>Numéro RCCM :</span>CD/LSH/RCCM/24-B-00471</p>
+                  <p><span>Numéro TVA :</span>xxxxx</p>
+                  
+                </div>
+              </div>
+
+              <!-- <div class="social-links">
+                <h3>Suivez-nous</h3>
+                <div class="social-icons">
+                  <a
+                    href="#"
+                    class="social-icon"
+                    aria-label="Notre page LinkedIn"
+                    >LinkedIn</a
+                  >
+                  <a
+                    href="#"
+                    class="social-icon"
+                    aria-label="Notre page Facebook"
+                    >Facebook</a
+                  >
+                  <a
+                    href="#"
+                    class="social-icon"
+                    aria-label="Notre page Twitter"
+                    >Twitter</a
+                  >
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+      <div class="container">
+        <p class="copyright">
+          © <span class="copyright-year">2025</span> Tek Communication Sarl. Tous droits réservés.
+        </p>
+      </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+  </body>
+</html>

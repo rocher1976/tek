@@ -1,0 +1,154 @@
+====================================================================
+LISTE DES IMAGES À AJOUTER DANS CE DOSSIER
+====================================================================
+
+Veuillez extraire et ajouter les images suivantes depuis votre site Google Sites :
+
+📁 IMAGES PRINCIPALES (Page d'accueil)
+----------------------------------------
+
+1. logo.png
+   - Logo Tek Communication avec l'icône bleue et le texte
+   - Format recommandé : PNG avec fond transparent
+   - Dimensions recommandées : 200x50px minimum
+   - Localisation : En haut à gauche du site Google Sites
+
+2. hero-mining.jpg
+   - Photo aérienne du site minier avec l'excavatrice jaune
+   - Format : JPG
+   - Dimensions recommandées : 1920x1080px
+   - Localisation : Grande image de fond avec "TEK COMMUNICATION"
+
+3. meeting-room.jpg
+   - Photo de la salle de réunion avec table blanche et chaises grises
+   - Format : JPG
+   - Dimensions recommandées : 1200x800px
+   - Localisation : Section avec le bouton "COMMENÇONS LA CONVERSATION"
+
+4. office-chairs.jpg
+   - Photo des 4 chaises de bureau modernes alignées
+   - Format : JPG
+   - Dimensions recommandées : 1200x600px
+   - Localisation : Section avec les chaises sur fond blanc
+
+
+📁 IMAGES DES SERVICES (Section 3 colonnes)
+----------------------------------------
+
+5. numerisation.jpg
+   - Image du code binaire vert (style Matrix) en tunnel
+   - Format : JPG
+   - Dimensions recommandées : 800x600px
+   - Localisation : Carte "NUMÉRISATION"
+
+6. conseil.jpg
+   - Image grise avec texture/placeholder
+   - Format : JPG
+   - Dimensions recommandées : 800x600px
+   - Localisation : Carte "CONSEIL"
+
+7. sous-traitance.jpg
+   - Photo du sol/terrain rocailleux marron
+   - Format : JPG
+   - Dimensions recommandées : 800x600px
+   - Localisation : Carte "SOUS-TRAITANCE"
+
+
+📁 IMAGES DE LA GALERIE (Section 3 images en bas)
+----------------------------------------
+
+8. binary-code.jpg
+   - Code binaire vert en forme de tunnel
+   - Format : JPG
+   - Dimensions recommandées : 600x400px
+   - Localisation : Première image de la galerie (fond gris)
+
+9. contract.jpg
+   - Photo du document/contrat avec stylo noir
+   - Format : JPG
+   - Dimensions recommandées : 600x400px
+   - Localisation : Deuxième image de la galerie (fond gris)
+
+10. construction.jpg
+    - Photo du bulldozer jaune sur le chantier
+    - Format : JPG
+    - Dimensions recommandées : 600x400px
+    - Localisation : Troisième image de la galerie (fond gris)
+
+
+====================================================================
+INSTRUCTIONS POUR EXTRAIRE LES IMAGES DE GOOGLE SITES
+====================================================================
+
+Méthode 1 : Capture d'écran de haute qualité
+----------------------------------------------
+1. Ouvrir votre site Google Sites
+2. Cliquer droit sur chaque image → "Ouvrir l'image dans un nouvel onglet"
+3. Faire un clic droit → "Enregistrer l'image sous..."
+4. Renommer selon les noms ci-dessus
+
+Méthode 2 : Télécharger depuis Google Drive
+----------------------------------------------
+Si vos images sont stockées dans Google Drive :
+1. Aller dans Google Drive
+2. Trouver les images utilisées sur le site
+3. Télécharger chaque image
+4. Renommer selon les noms ci-dessus
+
+Méthode 3 : Inspecter le code source
+----------------------------------------------
+1. Ouvrir le site Google Sites
+2. Faire F12 (Outils de développement)
+3. Onglet "Network" → Filtrer par "Images"
+4. Rafraîchir la page
+5. Cliquer sur chaque image → "Open in new tab"
+6. Télécharger l'image
+
+Méthode 4 : Utiliser des images alternatives
+----------------------------------------------
+Si vous n'avez pas accès aux images originales, vous pouvez :
+- Utiliser des images similaires de banques d'images gratuites (Unsplash, Pexels)
+- Recréer certains éléments (logo via un designer)
+- Utiliser des placeholders temporaires
+
+
+====================================================================
+OPTIMISATION DES IMAGES (Recommandé)
+====================================================================
+
+Pour de meilleures performances web :
+
+1. Compresser les images :
+   - Utiliser TinyPNG.com ou Squoosh.app
+   - Réduire la taille de fichier de 50-70% sans perte visible
+
+2. Formats recommandés :
+   - Logo : PNG (pour la transparence)
+   - Photos : JPG (qualité 80-85%)
+   - Alternatives modernes : WebP (meilleur compression)
+
+3. Dimensions maximales :
+   - Images de fond : 1920px de large max
+   - Images de contenu : 1200px de large max
+   - Miniatures : 600px de large max
+
+
+====================================================================
+UNE FOIS LES IMAGES AJOUTÉES
+====================================================================
+
+1. Vérifier que tous les fichiers sont dans le dossier /images/
+2. Vérifier que les noms correspondent exactement (sensible à la casse)
+3. Ouvrir index.html dans un navigateur pour tester
+4. Vérifier que toutes les images s'affichent correctement
+
+Si des images ne s'affichent pas :
+- Vérifier l'orthographe des noms de fichiers
+- Vérifier les extensions (.jpg vs .jpeg)
+- Vérifier les chemins dans le code HTML
+
+====================================================================
+
+Pour toute question, contactez le développeur ou consultez le README.md
+
+

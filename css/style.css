@@ -1,0 +1,836 @@
+/* ========================================
+   RESET & BASE STYLES
+   ======================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Logo-inspired color palette */
+  --primary-blue: #4a9eff;      /* Tek Blue - Primary brand color */
+  --primary-red: #e63946;       /* Accent color for CTAs */
+  --dark-text: #1a1a1a;
+  --light-gray: #f5f5f5;
+  --medium-gray: #d3d3d3;
+  --white: #ffffff;
+  --corporate-gray: #2c3e50;
+  --text-gray: #555;
+  --border-gray: #e0e0e0;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
+  --header-height: 72px;
+  
+  /* Blue theme variations for depth */
+  --blue-light: #6eb1ff;
+  --blue-dark: #2d6fd1;
+  --blue-accent-shadow: rgba(74, 158, 255, 0.2);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+  color: var(--dark-text);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ========================================
+   SKIP NAVIGATION LINK
+   ======================================== */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background: var(--primary-red);
+  color: var(--white);
+  padding: 12px 24px;
+  text-decoration: none;
+  z-index: 10000;
+  font-weight: 600;
+  border-radius: 0 0 4px 0;
+  transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid var(--dark-text);
+  outline-offset: 2px;
+}
+
+/* ========================================
+   VISUALLY HIDDEN (FOR SCREEN READERS)
+   ======================================== */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ========================================
+   SECTION HEADINGS
+   ======================================== */
+.section-heading {
+  font-size: 36px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 50px;
+  text-align: center;
+  letter-spacing: 2px;
+  color: var(--corporate-gray);
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.section-heading::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background-color: var(--primary-blue);
+}
+
+/* ========================================
+   STICKY HEADER (transparent at top, white on scroll)
+   ======================================== */
+.header {
+  height: var(--header-height);
+  background-color: rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  transition: background-color 200ms ease, box-shadow 200ms ease;
+  padding: 10px 0;
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
+  /* -webkit-backdrop-filter: blur(6px); */
+  /* backdrop-filter: blur(6px); */
+}
+
+/* White background when scrolled */
+.header.scrolled {
+  background-color: var(--white);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--white);
+  transition: color 200ms ease;
+}
+
+.logo-img {
+  display: block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: contain;
+  /* padding: 8px; */
+  /* background-color: rgba(255, 255, 255, 0.1); */
+  background-color: var(--white);
+  box-sizing: border-box;
+}
+
+.logo-text {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--white);
+  transition: color 200ms ease;
+}
+
+/* Logo text changes to dark when header is scrolled */
+.header.scrolled .logo a,
+.header.scrolled .logo-text {
+  color: var(--dark-text);
+}
+
+/* Add dark grey border to logo when header background is white */
+.header.scrolled .logo-img {
+  border: 0.1px solid var(--corporate-gray);
+}
+
+.nav-list {
+  display: flex;
+  list-style: none;
+  gap: 8px;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+/* Nav links: white when header is transparent, dark when scrolled */
+.header .nav-item a {
+  transition: color 200ms ease, background-color 200ms ease;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  color: var(--white);
+  text-decoration: none;
+}
+
+/* When header is scrolled, nav links are dark */
+.header.scrolled .nav-item a {
+  color: var(--dark-text);
+}
+
+/* Active nav item: always blue background with white text (both states) */
+.nav-item.active a {
+  background-color: var(--primary-blue);
+  color: var(--white);
+}
+
+/* Ensure active link stays white when header background is white */
+.header.scrolled .nav-item.active a {
+  background-color: var(--primary-blue);
+  color: var(--white);
+}
+
+/* Hover/focus for non-active items when header is transparent */
+.header:not(.scrolled) .nav-item:not(.active) a:hover,
+.header:not(.scrolled) .nav-item:not(.active) a:focus {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--white);
+  outline: none;
+}
+
+/* Hover/focus for non-active items when header is scrolled */
+.header.scrolled .nav-item:not(.active) a:hover,
+.header.scrolled .nav-item:not(.active) a:focus {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--dark-text);
+  outline: none;
+}
+
+/* Dropdown styles */
+.nav-item.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: var(--white);
+  min-width: 200px;
+  box-shadow: var(--shadow-md);
+  border-radius: 4px;
+  margin-top: 0; /* remove gap to prevent hover flicker */
+  padding: 8px 0;
+  z-index: 100;
+}
+
+.dropdown:hover .dropdown-menu,
+.dropdown-toggle[aria-expanded="true"] + .dropdown-menu {
+  display: block;
+}
+
+/* Also show when dropdown has programmatic 'open' class (for desktop hover JS) */
+.nav-item.dropdown.open .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu li {
+  list-style: none;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 12px 20px;
+  color: var(--dark-text);
+  text-decoration: none;
+  transition: background-color 200ms ease;
+}
+
+/* Ensure dropdown links are dark even when header nav links are white */
+.header .dropdown-menu a,
+.nav .dropdown-menu a {
+  color: var(--dark-text);
+}
+
+.header .dropdown-menu a:hover,
+.header .dropdown-menu a:focus,
+.nav .dropdown-menu a:hover,
+.nav .dropdown-menu a:focus {
+  color: var(--dark-text);
+  text-decoration: underline;
+}
+
+.dropdown-menu a:hover,
+.dropdown-menu a:focus {
+  background-color: var(--light-gray);
+  color: var(--dark-text);
+  text-decoration: underline;
+}
+
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.mobile-menu-toggle span {
+  width: 25px;
+  height: 3px;
+  background-color: var(--white);
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+/* Mobile menu toggle changes to dark when scrolled */
+.header.scrolled .mobile-menu-toggle span {
+  background-color: var(--dark-text);
+}
+
+/* ========================================
+   HERO (image starts at very top, header overlays)
+   ======================================== */
+.hero-mining {
+  position: relative;
+  margin-top: calc(var(--header-height) * -1);
+  padding-top: var(--header-height);
+  min-height: 100vh;
+  background-image: url("../images/dragline-195440_1280.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: block;
+  will-change: background-position;
+}
+
+/* overlay centered in the middle of the hero */
+.hero-overlay {
+  position: absolute;
+  top: var(--header-height);
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  pointer-events: none;
+  padding: 20px;
+  z-index: 30;
+  color: var(--white);
+}
+
+/* Dark overlay above the background image */
+.hero-mining::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.35) 40%,
+    rgba(0, 0, 0, 0.35) 60%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+  z-index: 20;
+  pointer-events: none;
+}
+
+@media (min-width: 968px) {
+  /* Fallback parallax for desktops where background-attachment works well */
+  .hero-mining {
+    background-attachment: fixed;
+  }
+}
+
+.hero-title {
+  color: var(--white);
+  font-size: clamp(34px, 6vw, 72px);
+  font-weight: 800;
+  letter-spacing: 1px;
+  z-index: 31;
+  pointer-events: auto;
+}
+
+.hero-underline {
+  margin-top: 0.1rem;
+  width: 800px;
+  height: 10px;
+  background: var(--primary-blue);
+  border-radius: 2px;
+  z-index: 31;
+}
+
+.tagline-section {
+  background-color: var(--light-gray);
+  padding: 40px 0;
+}
+
+.tagline {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--dark-text);
+}
+
+/* Meeting Room Hero */
+.hero-meeting {
+  background-color: var(--light-gray);
+  min-height: auto;
+  padding: 60px 0;
+}
+
+.hero-content {
+  text-align: center;
+}
+
+.hero-image {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 30px;
+  border-radius: 8px;
+}
+
+/* ========================================
+   BUTTONS
+   ======================================== */
+.cta-button,
+.service-button {
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+  border: 2px solid var(--dark-text);
+  padding: 15px 40px;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 1px;
+  font-family: inherit;
+}
+
+.cta-button {
+  background-color: var(--white);
+  color: var(--dark-text);
+  margin: 60px 0;
+}
+
+.cta-button:hover,
+.cta-button:focus {
+  background-color: var(--dark-text);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  outline: none;
+}
+
+.cta-button:focus-visible {
+  outline: 3px solid var(--primary-red);
+  outline-offset: 2px;
+}
+
+.cta-button-red {
+  background-color: var(--primary-red);
+  color: var(--white);
+  border: 2px solid var(--primary-red);
+  padding: 15px 40px;
+}
+
+.cta-button-red:hover,
+.cta-button-red:focus {
+  background-color: #d32f3e;
+  border-color: #d32f3e;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(230, 57, 70, 0.4);
+  outline: none;
+}
+
+.cta-button-red:focus-visible {
+  outline: 3px solid var(--dark-text);
+  outline-offset: 2px;
+}
+
+.service-button {
+  background-color: var(--primary-blue);
+  color: var(--white);
+  border: 2px solid var(--primary-blue);
+  padding: 12px 30px;
+  font-size: 14px;
+}
+
+.service-button:hover,
+.service-button:focus {
+  background-color: var(--blue-dark);
+  border-color: var(--blue-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--blue-accent-shadow);
+  outline: none;
+}
+
+.service-button:focus-visible {
+  outline: 3px solid var(--dark-text);
+  outline-offset: 2px;
+}
+
+/* ========================================
+   BANNER (Blue themed)
+   ======================================== */
+.red-banner {
+  background-color: var(--primary-blue);
+  padding: 80px 0;
+}
+
+.banner-text {
+  text-align: center;
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+/* ========================================
+   SERVICES SECTION
+   ======================================== */
+.services-section {
+  padding: 80px 0;
+  background-color: var(--white);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.service-card {
+  text-align: center;
+  background-color: var(--white);
+  border-radius: 12px;
+  padding: 30px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+.service-image {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 25px;
+}
+
+.service-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover .service-image img {
+  transform: scale(1.05);
+}
+
+.service-title {
+  font-size: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+}
+
+.service-description {
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 25px;
+  color: var(--text-gray);
+}
+
+/* ========================================
+   OFFICE SECTION
+   ======================================== */
+.office-section {
+  padding: 60px 0;
+  background-color: var(--white);
+  text-align: center;
+}
+
+.office-section .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 30px;
+  position: relative; /* allow absolute positioning of button over image */
+}
+
+.office-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+}
+
+/* Overlay the CTA button centered over the office image */
+.office-section .cta-button {
+  position: absolute;
+  top: 39%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+  .office-section .cta-button {
+    padding: 12px 28px; /* slightly smaller on small devices */
+  }
+}
+
+/* ========================================
+   ABOUT INTRO SECTION
+   ======================================== */
+.about-intro-section {
+  padding: 80px 0;
+  background-color: var(--white);
+}
+
+.about-content {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.about-text {
+  font-size: 18px;
+  line-height: 1.9;
+  color: #333;
+  margin-bottom: 35px;
+  text-align: justify;
+}
+
+/* ========================================
+   GALLERY SECTION
+   ======================================== */
+.gallery-section {
+  padding: 80px 0;
+  background-color: var(--light-gray);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.gallery-item {
+  height: 300px;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-item:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+.footer {
+  background-color: var(--corporate-gray);
+  padding: 40px 0;
+  /* border-top: 4px solid var(--primary-red); */
+  margin-top: 60px;
+}
+
+.copyright {
+  text-align: center;
+  font-size: 14px;
+  color: var(--white);
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+@media (max-width: 968px) {
+  .services-grid,
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+
+  .hero-title {
+    font-size: 48px;
+  }
+
+  .banner-text {
+    font-size: 32px;
+  }
+
+  .tagline {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Mobile Navigation */
+  .nav {
+    position: fixed;
+    top: 80px;
+    right: -100%;
+    width: 280px;
+    height: calc(100vh - 80px);
+    background-color: var(--white);
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    transition: right 0.3s ease;
+    z-index: 999;
+  }
+
+  .nav.active {
+    right: 0;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    gap: 0;
+    padding: 20px 0;
+  }
+
+  .nav-item {
+    width: 100%;
+  }
+
+  .nav-item a {
+    border-radius: 0;
+    padding: 15px 20px;
+    color: var(--dark-text);
+  }
+
+  .dropdown-menu {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    box-shadow: none;
+    background-color: var(--light-gray);
+    display: none;
+  }
+
+  .dropdown-menu.active {
+    display: block;
+  }
+
+  .mobile-menu-toggle {
+    display: flex;
+  }
+
+  .mobile-menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+  }
+
+  .mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+  }
+
+  /* Content Adjustments */
+  .services-grid,
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-title {
+    font-size: 36px;
+    letter-spacing: 2px;
+  }
+
+  .banner-text {
+    font-size: 24px;
+    letter-spacing: 1px;
+  }
+
+  .tagline {
+    font-size: 20px;
+  }
+
+  .about-text {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 28px;
+  }
+
+  .banner-text {
+    font-size: 20px;
+  }
+
+  .cta-button,
+  .cta-button-red {
+    padding: 12px 30px;
+    font-size: 14px;
+  }
+}
