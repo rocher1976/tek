@@ -48,14 +48,14 @@ if (mobileMenuToggle && nav) {
 const dropdownToggle = document.querySelector(".dropdown-toggle");
 const dropdownMenu = document.querySelector(".dropdown-menu");
 
+const dropdownItems = document.querySelectorAll(".nav-item.dropdown");
+
 if (dropdownToggle && dropdownMenu) {
   function toggleDropdown(e) {
     if (window.innerWidth <= 768) {
       e.preventDefault();
-      const isExpanded =
-        dropdownToggle.getAttribute("aria-expanded") === "true";
-      dropdownMenu.classList.toggle("active");
-      dropdownToggle.setAttribute("aria-expanded", !isExpanded);
+      dropdownMenu.classList.add("active");
+      dropdownToggle.setAttribute("aria-expanded", "true");
     }
   }
 
@@ -66,17 +66,6 @@ if (dropdownToggle && dropdownMenu) {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       toggleDropdown(e);
-    }
-  });
-
-  // Close dropdown when clicking outside
-  document.addEventListener("click", function (e) {
-    if (
-      !dropdownToggle.contains(e.target) &&
-      !dropdownMenu.contains(e.target)
-    ) {
-      dropdownMenu.classList.remove("active");
-      dropdownToggle.setAttribute("aria-expanded", "false");
     }
   });
 
@@ -115,17 +104,53 @@ if (dropdownToggle && dropdownMenu) {
       }
     }
 
-    bindDesktopHover();
-    window.addEventListener('resize', () => {
-      // Close when switching layouts
+    function updateDropdownForViewport() {
       if (window.innerWidth <= 768) {
         dropdownItem.classList.remove('open');
+        dropdownMenu.classList.add('active');
+        dropdownToggle.setAttribute('aria-expanded', 'true');
+      } else {
         dropdownMenu.classList.remove('active');
         dropdownToggle.setAttribute('aria-expanded', 'false');
       }
-    });
+    }
+
+    bindDesktopHover();
+    updateDropdownForViewport();
+    window.addEventListener('resize', updateDropdownForViewport);
+    document.addEventListener('click', (event) => {
+      if (
+        window.innerWidth > 768 &&
+        !dropdownItem.contains(event.target)
+      ) {
+        dropdownItem.classList.remove('open');
+        dropdownToggle.setAttribute('aria-expanded', 'false');
+      }
+    }, { passive: true });
   }
 }
+
+// Ensure dropdown menus remain active on mobile navigation regardless of which dropdown is present
+function syncMobileDropdownState() {
+  const shouldForceOpen = window.innerWidth <= 768;
+
+  dropdownItems.forEach((item) => {
+    const toggle = item.querySelector(".dropdown-toggle");
+    const menu = item.querySelector(".dropdown-menu");
+    if (!toggle || !menu) return;
+
+    if (shouldForceOpen) {
+      menu.classList.add("active");
+      toggle.setAttribute("aria-expanded", "true");
+    } else if (!item.classList.contains("open")) {
+      menu.classList.remove("active");
+      toggle.setAttribute("aria-expanded", "false");
+    }
+  });
+}
+
+window.addEventListener("resize", syncMobileDropdownState);
+syncMobileDropdownState();
 
 // Smooth scrolling for anchor links with offset for sticky header
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
@@ -176,32 +201,6 @@ document
       }
     });
   });
-
-// Add active class to current page in navigation
-function updateActiveNavItem() {
-  const currentLocation = window.location.pathname;
-  const navItems = document.querySelectorAll(".nav-item a");
-
-  navItems.forEach((item) => {
-    const href = item.getAttribute("href");
-    item.removeAttribute("aria-current");
-    item.parentElement.classList.remove("active");
-
-    // Check if current page matches
-    if (
-      currentLocation.endsWith(href) ||
-      (href === "index.html" && currentLocation.endsWith("/")) ||
-      currentLocation.endsWith("/index.html") ||
-      (currentLocation.includes(href) && href !== "#")
-    ) {
-      item.parentElement.classList.add("active");
-      item.setAttribute("aria-current", "page");
-    }
-  });
-}
-
-// Update navigation on page load
-updateActiveNavItem();
 
 // Keyboard navigation improvements
 document.addEventListener("keydown", function (e) {
@@ -292,8 +291,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const SCROLL_THRESHOLD = 40; // trigger after scrolling 40px
 
   function updateHeaderState() {
-    if (window.scrollY > SCROLL_THRESHOLD) {
+    const isDesktop = window.innerWidth > 768;
+    if (isDesktop && window.scrollY > SCROLL_THRESHOLD) {
       header.classList.add("scrolled");
+    } else if (!isDesktop) {
+      header.classList.remove("scrolled");
     } else {
       header.classList.remove("scrolled");
     }
@@ -337,27 +339,42 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Navigation: set only the matching nav-item to active based on current page
   const navLinks = document.querySelectorAll(".nav-list a");
-  const currentPath = window.location.pathname;
-  const currentFile = (
-    currentPath.split("/").pop() || "index.html"
-  ).toLowerCase();
+
+  const normalizePath = (path) => {
+    if (!path) return "/";
+    let pathname;
+    try {
+      pathname = new URL(path, window.location.origin).pathname;
+    } catch (e) {
+      pathname = path;
+    }
+    pathname = pathname.replace(/index\.html$/i, "");
+    if (!pathname.startsWith("/")) {
+      pathname = `/${pathname}`;
+    }
+    if (pathname.length > 1 && pathname.endsWith("/")) {
+      pathname = pathname.replace(/\/+$/, "/");
+    }
+    if (!pathname.endsWith("/")) {
+      pathname = `${pathname}/`;
+    }
+    return pathname;
+  };
+
+  const currentPath = normalizePath(window.location.pathname);
 
   navLinks.forEach((anchor) => {
-    const href = anchor.getAttribute("href") || "";
-    const hrefFile = (href.split("/").pop() || "").split("#")[0].toLowerCase();
+    const href = anchor.getAttribute("href");
+    if (!href) return;
 
+    const targetPath = normalizePath(href);
     const li = anchor.closest(".nav-item");
     if (!li) return;
 
     li.classList.remove("active");
     anchor.removeAttribute("aria-current");
 
-    if (
-      (hrefFile && hrefFile === currentFile) ||
-      (currentFile === "" && (hrefFile === "" || hrefFile === "index.html")) ||
-      (currentFile === "index.html" &&
-        (hrefFile === "" || hrefFile === "index.html"))
-    ) {
+    if (currentPath === targetPath) {
       li.classList.add("active");
       anchor.setAttribute("aria-current", "page");
     }

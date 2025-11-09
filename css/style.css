@@ -202,6 +202,7 @@ body {
   border-radius: 6px;
   color: var(--white);
   text-decoration: none;
+  background-color: transparent;
 }
 
 /* When header is scrolled, nav links are dark */
@@ -209,31 +210,33 @@ body {
   color: var(--dark-text);
 }
 
-/* Active nav item: always blue background with white text (both states) */
-.nav-item.active a {
+/* Active nav item via aria-current */
+.nav-list a[aria-current="page"] {
   background-color: var(--primary-blue);
   color: var(--white);
 }
 
 /* Ensure active link stays white when header background is white */
-.header.scrolled .nav-item.active a {
+.header.scrolled .nav-list a[aria-current="page"] {
   background-color: var(--primary-blue);
   color: var(--white);
 }
 
 /* Hover/focus for non-active items when header is transparent */
-.header:not(.scrolled) .nav-item:not(.active) a:hover,
-.header:not(.scrolled) .nav-item:not(.active) a:focus {
+.header:not(.scrolled) .nav-item:not(.active) > a:hover,
+.header:not(.scrolled) .nav-item:not(.active) > a:focus {
   background-color: rgba(255, 255, 255, 0.1);
   color: var(--white);
+  text-decoration: none;
   outline: none;
 }
 
 /* Hover/focus for non-active items when header is scrolled */
-.header.scrolled .nav-item:not(.active) a:hover,
-.header.scrolled .nav-item:not(.active) a:focus {
+.header.scrolled .nav-item:not(.active) > a:hover,
+.header.scrolled .nav-item:not(.active) > a:focus {
   background-color: rgba(0, 0, 0, 0.05);
   color: var(--dark-text);
+  text-decoration: none;
   outline: none;
 }
 
@@ -243,27 +246,37 @@ body {
 }
 
 .dropdown-menu {
-  display: none;
   position: absolute;
-  top: 100%;
+  top: calc(100% + 8px);
   left: 0;
   background-color: var(--white);
-  min-width: 200px;
+  min-width: 220px;
+  border: 1px solid var(--border-gray);
   box-shadow: var(--shadow-md);
-  border-radius: 4px;
-  margin-top: 0; /* remove gap to prevent hover flicker */
+  border-radius: 8px;
   padding: 8px 0;
   z-index: 100;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
 }
 
 .dropdown:hover .dropdown-menu,
 .dropdown-toggle[aria-expanded="true"] + .dropdown-menu {
-  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
 /* Also show when dropdown has programmatic 'open' class (for desktop hover JS) */
 .nav-item.dropdown.open .dropdown-menu {
-  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
 .dropdown-menu li {
@@ -272,49 +285,51 @@ body {
 
 .dropdown-menu a {
   display: block;
-  padding: 12px 20px;
+  padding: 0.85rem 1.25rem;
   color: var(--dark-text);
   text-decoration: none;
-  transition: background-color 200ms ease;
+  transition: background-color 200ms ease, color 200ms ease;
+  white-space: nowrap;
+  text-align: center;
 }
 
-/* Ensure dropdown links are dark even when header nav links are white */
+/* Ensure dropdown links are visible on both header states */
 .header .dropdown-menu a,
 .nav .dropdown-menu a {
   color: var(--dark-text);
 }
 
-.header .dropdown-menu a:hover,
-.header .dropdown-menu a:focus,
-.nav .dropdown-menu a:hover,
-.nav .dropdown-menu a:focus {
-  color: var(--dark-text);
-  text-decoration: underline;
-}
-
 .dropdown-menu a:hover,
-.dropdown-menu a:focus {
-  background-color: var(--light-gray);
-  color: var(--dark-text);
-  text-decoration: underline;
+.dropdown-menu a:focus,
+.nav .dropdown-menu li a:hover,
+.nav .dropdown-menu li a:focus {
+  background-color: rgba(31, 76, 143, 0.18);
+  color: #0f2f68 !important;
+  text-decoration: none;
 }
 
 .mobile-menu-toggle {
   display: none;
   flex-direction: column;
-  gap: 5px;
+  gap: 4px;
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 8px;
+  padding: 6px;
 }
 
 .mobile-menu-toggle span {
-  width: 25px;
-  height: 3px;
+  width: 20px;
+  height: 2px;
   background-color: var(--white);
   transition: all 0.3s ease;
   border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-toggle span {
+    background-color: var(--dark-text);
+  }
 }
 
 /* Mobile menu toggle changes to dark when scrolled */
@@ -389,25 +404,25 @@ body {
 }
 
 .hero-underline {
-  margin-top: 0.1rem;
-  width: 800px;
-  height: 10px;
+  margin-top: 0.75rem;
+  width: clamp(140px, 32vw, 360px);
+  height: 6px;
   background: var(--primary-blue);
-  border-radius: 2px;
+  border-radius: 999px;
   z-index: 31;
 }
 
 .tagline-section {
   background-color: var(--light-gray);
-  padding: 40px 0;
+  padding: clamp(32px, 6vw, 48px) 0;
 }
 
 .tagline {
   text-align: center;
-  font-size: 30px;
+  font-size: clamp(20px, 4vw, 30px);
   font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
   color: var(--dark-text);
 }
 
@@ -521,32 +536,32 @@ body {
 
 .banner-text {
   text-align: center;
-  font-size: 42px;
+  font-size: clamp(28px, 5vw, 42px);
   font-weight: 700;
   color: var(--white);
   text-transform: uppercase;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
 }
 
 /* ========================================
    SERVICES SECTION
    ======================================== */
 .services-section {
-  padding: 80px 0;
+  padding: clamp(60px, 8vw, 90px) 0;
   background-color: var(--white);
 }
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: clamp(24px, 4vw, 40px);
 }
 
 .service-card {
   text-align: center;
   background-color: var(--white);
   border-radius: 12px;
-  padding: 30px;
+  padding: clamp(20px, 4vw, 32px);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: var(--shadow-sm);
 }
@@ -558,10 +573,10 @@ body {
 
 .service-image {
   width: 100%;
-  height: 300px;
+  height: clamp(220px, 28vw, 300px);
   overflow: hidden;
   border-radius: 8px;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
 .service-image img {
@@ -576,7 +591,7 @@ body {
 }
 
 .service-title {
-  font-size: 24px;
+  font-size: clamp(20px, 2.5vw, 24px);
   font-weight: 700;
   text-transform: uppercase;
   margin-bottom: 15px;
@@ -584,7 +599,7 @@ body {
 }
 
 .service-description {
-  font-size: 16px;
+  font-size: clamp(15px, 2vw, 16px);
   line-height: 1.8;
   margin-bottom: 25px;
   color: var(--text-gray);
@@ -618,16 +633,19 @@ body {
 /* Overlay the CTA button centered over the office image */
 .office-section .cta-button {
   position: absolute;
-  top: 39%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
   pointer-events: auto;
+  padding: clamp(12px, 2vw, 18px) clamp(28px, 5vw, 42px);
+  width: min(80%, 320px);
 }
 
 @media (max-width: 768px) {
   .office-section .cta-button {
-    padding: 12px 28px; /* slightly smaller on small devices */
+    width: min(88%, 280px);
+    font-size: 14px;
   }
 }
 
@@ -649,8 +667,9 @@ body {
   font-size: 18px;
   line-height: 1.9;
   color: #333;
-  margin-bottom: 35px;
+  margin: clamp(24px, 5vw, 36px) auto;
   text-align: justify;
+  padding: 0 clamp(18px, 5vw, 36px);
 }
 
 /* ========================================
@@ -663,12 +682,12 @@ body {
 
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: clamp(20px, 3vw, 30px);
 }
 
 .gallery-item {
-  height: 300px;
+  height: clamp(200px, 26vw, 300px);
   overflow: hidden;
   border-radius: 8px;
   box-shadow: var(--shadow-md);
@@ -732,11 +751,16 @@ body {
 
 @media (max-width: 768px) {
   /* Mobile Navigation */
+  .header {
+    background-color: var(--white);
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  }
+
   .nav {
     position: fixed;
     top: 80px;
     right: -100%;
-    width: 280px;
+    width: 180px;
     height: calc(100vh - 80px);
     background-color: var(--white);
     box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
@@ -750,7 +774,7 @@ body {
 
   .nav-list {
     flex-direction: column;
-    gap: 0;
+    gap: 5px;
     padding: 20px 0;
   }
 
@@ -760,22 +784,39 @@ body {
 
   .nav-item a {
     border-radius: 0;
-    padding: 15px 20px;
+    padding: 12px 18px;
     color: var(--dark-text);
+    background-color: transparent;
   }
 
   .dropdown-menu {
     position: static;
+    min-width: 100%;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    padding: 0;
     opacity: 1;
     visibility: visible;
     transform: none;
-    box-shadow: none;
-    background-color: var(--light-gray);
-    display: none;
+    display: block;
+    pointer-events: auto;
   }
 
-  .dropdown-menu.active {
-    display: block;
+  .dropdown-menu a {
+    padding: 18px 26px;
+    color: var(--dark-text);
+    text-align: center;
+  }
+
+  .header .nav-item a {
+    color: var(--dark-text);
+  }
+
+  .nav-item.dropdown .dropdown-toggle {
+    padding: 12px 20px;
+    width: 100%;
+    text-align: left;
   }
 
   .mobile-menu-toggle {
@@ -800,9 +841,26 @@ body {
     grid-template-columns: 1fr;
   }
 
+  p {
+    text-align: justify;
+  }
+
   .hero-title {
     font-size: 36px;
     letter-spacing: 2px;
+  }
+
+  .hero-mining {
+    min-height: 80vh;
+  }
+
+  .hero-overlay {
+    padding: 24px 16px;
+  }
+
+  .hero-underline {
+    width: clamp(160px, 45vw, 260px);
+    height: 4px;
   }
 
   .banner-text {
@@ -817,11 +875,42 @@ body {
   .about-text {
     font-size: 16px;
   }
+
+  .services-grid {
+    gap: 24px;
+  }
+
+  .service-card {
+    padding: 24px;
+  }
+
+  .service-image {
+    height: 220px;
+  }
+
+  .about-intro-section {
+    padding: 60px 0;
+  }
+
+  .office-section {
+    padding: 50px 0;
+  }
+
+  .office-section .cta-button {
+    width: min(88%, 280px);
+    padding: 12px 20px;
+    font-size: 14px;
+  }
 }
 
 @media (max-width: 480px) {
   .hero-title {
     font-size: 28px;
+  }
+
+  .hero-underline {
+    width: clamp(140px, 60vw, 200px);
+    height: 3px;
   }
 
   .banner-text {
@@ -832,5 +921,21 @@ body {
   .cta-button-red {
     padding: 12px 30px;
     font-size: 14px;
+  }
+
+  .service-card {
+    padding: 20px;
+  }
+
+  .service-image {
+    height: 200px;
+  }
+
+  .service-title {
+    font-size: 18px;
+  }
+
+  .office-section .cta-button {
+    padding: 12px 18px;
   }
 }

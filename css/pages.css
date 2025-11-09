@@ -11,7 +11,7 @@
     background-repeat: no-repeat;
     /* Pull hero under sticky header so transparent header shows page background */
     margin-top: calc(var(--header-height) * -1);
-    padding: calc(100px + var(--header-height)) 0 80px;
+    padding: calc(80px + var(--header-height)) 0 clamp(60px, 9vw, 100px);
     text-align: center;
     will-change: background-position;
 }
@@ -40,16 +40,29 @@
 }
 
 .page-title {
-    font-size: 48px;
+    font-size: clamp(32px, 6vw, 48px);
     font-weight: 700;
     color: var(--white);
     text-transform: uppercase;
     letter-spacing: 3px;
     margin-bottom: 15px;
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.page-title::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(140px, 28vw, 220px);
+    height: 4px;
+    background-color: var(--primary-blue);
 }
 
 .page-subtitle {
-    font-size: 20px;
+    font-size: clamp(16px, 3.8vw, 20px);
     color: var(--white);
     opacity: 0.9;
 }
@@ -112,7 +125,7 @@
 
 /* Service Detail Section (Services Page) */
 .services-detail-section {
-    padding: 80px 0;
+    padding: clamp(60px, 9vw, 90px) 0;
 }
 
 .services-detail-section.alternate {
@@ -121,8 +134,8 @@
 
 .service-detail {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(32px, 6vw, 60px);
     align-items: center;
 }
 
@@ -132,7 +145,7 @@
 
 .service-detail-image img {
     width: 100%;
-    height: 400px;
+    height: clamp(260px, 34vw, 400px);
     object-fit: cover;
     border-radius: 8px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
@@ -182,8 +195,8 @@
 
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: clamp(24px, 4vw, 40px);
     margin-bottom: 60px;
 }
 
@@ -201,7 +214,7 @@
 }
 
 .project-image {
-    height: 250px;
+    height: clamp(200px, 30vw, 260px);
     overflow: hidden;
 }
 
@@ -247,21 +260,21 @@
 
 /* Contact Section (Contact Page) */
 .contact-section {
-    padding: 80px 0;
+    padding: clamp(60px, 9vw, 90px) 0;
     background-color: var(--light-gray);
 }
 
 .contact-grid {
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 60px;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: clamp(32px, 6vw, 60px);
     margin-top: 40px;
 }
 
 .contact-form-wrapper,
 .contact-info-wrapper {
     background-color: var(--white);
-    padding: 40px;
+    padding: clamp(28px, 4vw, 40px);
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -413,23 +426,23 @@
    RESPONSIVE DESIGN FOR PAGES
    ======================================== */
 @media (max-width: 968px) {
-    .values-grid,
-    .projects-grid {
-        grid-template-columns: 1fr;
-    }
-
     .service-detail {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
         gap: 40px;
     }
 
-    .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
+    .service-detail-content {
+        text-align: left;
     }
 
-    .page-title {
-        font-size: 36px;
+    .services-detail-section.alternate .service-detail-image {
+        order: -1;
+    }
+
+    .values-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
     }
 
     .section-heading {
@@ -439,20 +452,57 @@
 
 @media (max-width: 768px) {
     .page-hero {
-        padding: 80px 0 60px;
+        padding: calc(70px + var(--header-height)) 0 56px;
     }
 
-    .page-title {
-        font-size: 28px;
+    .services-detail-section {
+        padding: 60px 0;
     }
 
-    .page-subtitle {
-        font-size: 16px;
+    .service-detail {
+        gap: 32px;
+    }
+
+    .service-detail-image img {
+        height: clamp(220px, 50vw, 320px);
+    }
+
+    .service-detail-title {
+        font-size: 26px;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
     }
 
     .contact-form-wrapper,
     .contact-info-wrapper {
-        padding: 30px 20px;
+        padding: 28px 20px;
+    }
+}
+
+@media (max-width: 560px) {
+    .page-title::after {
+        height: 3px;
+    }
+
+    .service-detail-list li {
+        padding-left: 26px;
+        font-size: 15px;
+    }
+
+    .contact-info-item h3 {
+        font-size: 15px;
+    }
+
+    .contact-info-item p,
+    .contact-info-item a {
+        font-size: 15px;
+    }
+
+    .projects-section {
+        padding: 50px 0 70px;
     }
 }
 
